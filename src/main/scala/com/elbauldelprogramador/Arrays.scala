@@ -39,6 +39,8 @@ object Arrays {
    * Assumptions: Each input would have exactly one solution,
    * the same element can not be used twice.
    *
+   * This has efficiency of O(n)
+   *
    * @param a Array with the elements
    * @param t target to compute
    * @return Indexes of the two numbers summing t
@@ -52,7 +54,7 @@ object Arrays {
         case Some(h) ⇒
           (m get (t - a(h)): @switch) match {
             case Some(x) ⇒
-              log info s"Getting Some($x)"
+              log debug s"Getting Some($x)"
               Some(x -> h)
             case None ⇒ go(m + (a(h) -> h), i.tail)
           }
@@ -61,5 +63,32 @@ object Arrays {
 
     if (a.indices.isEmpty) None
     else go(HashMap.empty[Int, Int], a.indices)
+  }
+
+  /**
+   * Given n non-negative integers a1, a2, ..., an, where each represents a point at
+   * coordinate (i, ai), n vertical lines are drawn such that the two endpoints of line
+   * i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container such
+   * that the container contains the most water.
+   *
+   * Efficiency: O(n)
+   *
+   * @param a Array of line heights
+   * @return Maximum area
+   */
+  def maxArea(a: Array[Int]): Int = {
+    @tailrec
+    def go(l: Int, r: Int)(max: Int): Int = {
+      if (l >= r) max
+      else {
+        val currArea = math.min(a(l), a(r)) * (r - l)
+        val area = math.max(max, currArea)
+        log debug s"Current area for $l and $r is $currArea"
+        log debug s"Max area till now is $area"
+        if (a(l) < a(r)) go(l + 1, r)(area)
+        else go(l, r - 1)(area)
+      }
+    }
+    go(0, a.size - 1)(0)
   }
 }

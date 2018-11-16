@@ -29,14 +29,21 @@ class ArrayProps extends CheckSpec {
       maxSize = 1000)
 
   val smallInt = Gen.choose(0, 100)
+  val positiveList = Gen.containerOf[Array, Int](Gen choose (1, 1000000) suchThat (_ > 0))
 
-  property("x(i) + x(j) === target") {
+  property("TwoSum: x(i) + x(j) === target") {
     forAll { (x: Array[Int], smallInt: Int) ⇒
-      val a = Arrays.twoSums(x, smallInt)
+      val a = Arrays twoSums (x, smallInt)
       a match {
         case None ⇒ a shouldBe None
         case Some((i, j)) ⇒ x(i) + x(j) shouldBe smallInt
       }
+    }
+  }
+
+  property("MaxArea: always > 0 for non-empty Arrays") {
+    forAll { positiveList: Array[Int] ⇒
+      Arrays maxArea (positiveList) should be > 0
     }
   }
 }
