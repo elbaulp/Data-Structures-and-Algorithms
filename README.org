@@ -10,4 +10,4 @@ Android app Data Structures & Algorithms
   :END:
 
 - [[https://github.com/elbaulp/Data-Structures-and-Algorithms/blob/master/src/main/scala/com/elbauldelprogramador/Arrays.scala#L46][Two sum]]
-- [[file:src/main/scala/com/elbauldelprogramador/Arrays.scala::79][Max Area]]
+- [[file:src/main/scala/com/elbauldelprogramador/Arrays.scala#L79][Max Area]]
